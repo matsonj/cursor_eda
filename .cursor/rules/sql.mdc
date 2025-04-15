@@ -1,0 +1,28 @@
+---
+description: 
+globs: *.sql
+alwaysApply: false
+---
+# SQL Rules
+
+This rule applies to all SQL files in the project.
+
+## File Pattern
+*.sql
+
+## Description
+When working with SQL files, we use DuckDB as our database engine. SQL files should be executed using the command `duckdb md: -f {file}`.
+
+## Formatting
+- Use 4 spaces for indentation
+- Use SQLFluff for formatting with DuckDB dialect
+- Format on save
+
+## Commands
+- Run SQL file: `duckdb -f {file}`
+
+## Best Practices
+- Use consistent naming conventions
+- Include comments for complex queries
+- Use proper indentation for readability
+- Follow DuckDB's SQL dialect specifications 

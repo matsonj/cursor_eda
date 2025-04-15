@@ -1,0 +1,11 @@
+[project]
+name = "cursor-eda"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb>=1.2.2",
+    "scikit-learn>=1.6.1",
+    "xgboost>=3.0.0",
+]
