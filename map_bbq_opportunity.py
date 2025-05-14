@@ -38,8 +38,7 @@ WHERE p.locality ILIKE '%boston%'
 proposed_locations_query = '''
 WITH restaurant_density AS (
     SELECT 
-        ROUND(p.latitude, 3) AS lat_bin,
-        ROUND(p.longitude, 3) AS lon_bin,
+        h3_latlng_to_cell(p.latitude, p.longitude, 9) AS h3_cell,
         COUNT(*) as restaurant_count
     FROM places p
     WHERE 
@@ -47,12 +46,11 @@ WITH restaurant_density AS (
         AND p.date_closed IS NULL
         AND p.latitude BETWEEN 42.2279 AND 42.3975
         AND p.longitude BETWEEN -71.1912 AND -70.8085
-    GROUP BY lat_bin, lon_bin
+    GROUP BY h3_cell
 ),
 bbq_locations AS (
     SELECT 
-        ROUND(p.latitude, 3) AS lat_bin,
-        ROUND(p.longitude, 3) AS lon_bin
+        h3_latlng_to_cell(p.latitude, p.longitude, 9) AS h3_cell
     FROM places p
     LEFT JOIN categories c ON p.fsq_category_ids[1] = c.category_id
     WHERE 
@@ -70,20 +68,18 @@ bbq_locations AS (
         )
         AND p.latitude BETWEEN 42.2279 AND 42.3975
         AND p.longitude BETWEEN -71.1912 AND -70.8085
-    GROUP BY lat_bin, lon_bin
+    GROUP BY h3_cell
 )
 SELECT 
-    rd.lat_bin AS latitude,
-    rd.lon_bin AS longitude,
+    rd.h3_cell,
+    h3_cell_to_lat(rd.h3_cell) AS latitude,
+    h3_cell_to_lng(rd.h3_cell) AS longitude,
     rd.restaurant_count
 FROM restaurant_density rd
 WHERE NOT EXISTS (
     SELECT 1
     FROM bbq_locations bl
-    WHERE ST_Distance(
-        ST_Point(rd.lon_bin, rd.lat_bin),
-        ST_Point(bl.lon_bin, bl.lat_bin)
-    ) <= 0.1
+    WHERE bl.h3_cell = rd.h3_cell
 )
 ORDER BY rd.restaurant_count DESC
 LIMIT 3;
@@ -94,6 +90,8 @@ def main():
     con = duckdb.connect('local.db')
     con.execute('INSTALL spatial;')
     con.execute('LOAD spatial;')
+    con.execute('INSTALL h3 FROM community;')
+    con.execute('LOAD h3;')
 
     # Query data
     all_restaurants = con.execute(all_restaurants_query).fetchdf()
@@ -116,11 +114,11 @@ def main():
             icon=folium.Icon(color='blue', icon='cutlery', prefix='fa')
         ).add_to(m)
 
-    # Add red pins for proposed new locations
+    # Add red pins for proposed new H3 cell locations
     for _, row in proposed_locations.iterrows():
         folium.Marker(
             location=[row['latitude'], row['longitude']],
-            popup=f"Proposed Location (Count: {row['restaurant_count']})",
+            popup=f"Recommended H3 Cell (Count: {row['restaurant_count']})",
             icon=folium.Icon(color='red', icon='star', prefix='fa')
         ).add_to(m)
 

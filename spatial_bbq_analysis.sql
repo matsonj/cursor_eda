@@ -1,12 +1,12 @@
 INSTALL spatial;
 LOAD spatial;
-INSTALL h3;
+INSTALL h3 FROM community;
 LOAD h3;
 
 -- Query to identify top 3 H3 tiles with high restaurant density and no BBQ restaurants
 WITH restaurant_density AS (
     SELECT 
-        h3_lat_lng_to_cell(p.latitude, p.longitude, 9) AS h3_cell,
+        h3_latlng_to_cell(p.latitude, p.longitude, 9) AS h3_cell,
         COUNT(*) as restaurant_count
     FROM places p
     WHERE 
@@ -18,7 +18,7 @@ WITH restaurant_density AS (
 ),
 bbq_locations AS (
     SELECT 
-        h3_lat_lng_to_cell(p.latitude, p.longitude, 9) AS h3_cell
+        h3_latlng_to_cell(p.latitude, p.longitude, 9) AS h3_cell
     FROM places p
     LEFT JOIN categories c ON p.fsq_category_ids[1] = c.category_id
     WHERE 
