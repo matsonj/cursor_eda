@@ -11,7 +11,7 @@ This rule applies to all SQL files in the project.
 *.sql
 
 ## Description
-When working with SQL files, we use DuckDB as our database engine. SQL files should be executed using the command `duckdb md: -f {file}`.
+When working with SQL files, we use DuckDB as our database engine. SQL files should be executed using the command `duckdb local.db -f {file}`.
 
 ## Formatting
 - Use 4 spaces for indentation
@@ -19,7 +19,7 @@ When working with SQL files, we use DuckDB as our database engine. SQL files sho
 - Format on save
 
 ## Commands
-- Run SQL file: `duckdb -f {file}`
+- Run SQL file: `duckdb local.db -f {file}`
 
 ## Best Practices
 - Use consistent naming conventions
