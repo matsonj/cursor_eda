@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='utf-8'?>
+<database name="local">
+  <table name="categories">
+    <column name="category_id" type="VARCHAR" nullable="YES" />
+    <column name="category_level" type="INTEGER" nullable="YES" />
+    <column name="category_name" type="VARCHAR" nullable="YES" />
+    <column name="category_label" type="VARCHAR" nullable="YES" />
+    <column name="level1_category_id" type="VARCHAR" nullable="YES" />
+    <column name="level1_category_name" type="VARCHAR" nullable="YES" />
+    <column name="level2_category_id" type="VARCHAR" nullable="YES" />
+    <column name="level2_category_name" type="VARCHAR" nullable="YES" />
+    <column name="level3_category_id" type="VARCHAR" nullable="YES" />
+    <column name="level3_category_name" type="VARCHAR" nullable="YES" />
+    <column name="level4_category_id" type="VARCHAR" nullable="YES" />
+    <column name="level4_category_name" type="VARCHAR" nullable="YES" />
+    <column name="level5_category_id" type="VARCHAR" nullable="YES" />
+    <column name="level5_category_name" type="VARCHAR" nullable="YES" />
+    <column name="level6_category_id" type="VARCHAR" nullable="YES" />
+    <column name="level6_category_name" type="VARCHAR" nullable="YES" />
+    <column name="dt" type="DATE" nullable="YES" />
+  </table>
+  <table name="places">
+    <column name="fsq_place_id" type="VARCHAR" nullable="YES" />
+    <column name="name" type="VARCHAR" nullable="YES" />
+    <column name="latitude" type="DOUBLE" nullable="YES" />
+    <column name="longitude" type="DOUBLE" nullable="YES" />
+    <column name="address" type="VARCHAR" nullable="YES" />
+    <column name="locality" type="VARCHAR" nullable="YES" />
+    <column name="region" type="VARCHAR" nullable="YES" />
+    <column name="postcode" type="VARCHAR" nullable="YES" />
+    <column name="admin_region" type="VARCHAR" nullable="YES" />
+    <column name="post_town" type="VARCHAR" nullable="YES" />
+    <column name="po_box" type="VARCHAR" nullable="YES" />
+    <column name="country" type="VARCHAR" nullable="YES" />
+    <column name="date_created" type="VARCHAR" nullable="YES" />
+    <column name="date_refreshed" type="VARCHAR" nullable="YES" />
+    <column name="date_closed" type="VARCHAR" nullable="YES" />
+    <column name="tel" type="VARCHAR" nullable="YES" />
+    <column name="website" type="VARCHAR" nullable="YES" />
+    <column name="email" type="VARCHAR" nullable="YES" />
+    <column name="facebook_id" type="BIGINT" nullable="YES" />
+    <column name="instagram" type="VARCHAR" nullable="YES" />
+    <column name="twitter" type="VARCHAR" nullable="YES" />
+    <column name="fsq_category_ids" type="VARCHAR[]" nullable="YES" />
+    <column name="fsq_category_labels" type="VARCHAR[]" nullable="YES" />
+    <column name="placemaker_url" type="VARCHAR" nullable="YES" />
+    <column name="geom" type="GEOMETRY" nullable="YES" />
+    <column name="bbox" type="STRUCT(xmin DOUBLE, ymin DOUBLE, xmax DOUBLE, ymax DOUBLE)" nullable="YES" />
+    <column name="dt" type="DATE" nullable="YES" />
+  </table>
+</database>

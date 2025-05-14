@@ -8,5 +8,5 @@ dependencies = [
     "duckdb>=1.2.2",
     "scikit-learn>=1.6.1",
     "xgboost>=3.0.0",
-    "folium"
+    "folium>=0.15.1"
 ]
