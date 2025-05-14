@@ -25,7 +25,8 @@ When working with Python files, we use `uv` as our package manager and runtime. 
 
 ## Commands
 - Run Python file: `uv run {file}`
-- Install dependencies: `uv pip install -r requirements.txt`
+- Install dependencies: `uv sync`
+- Add new package: `uv add {package}`
 - Format code: `ruff format {file}`
 - Lint code: `ruff check {file}`
 - Fix linting issues: `ruff check --fix {file}`
