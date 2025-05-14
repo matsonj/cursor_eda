@@ -58,6 +58,10 @@ def save_schema_to_file(root: ET.Element, output_path: str) -> None:
         root: XML Element containing the schema
         output_path: Path where to save the XML file
     """
+    # Ensure the output directory exists
+    output_file = Path(output_path)
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    
     ET.indent(root)
     tree = ET.ElementTree(root)
     tree.write(output_path, encoding="utf-8", xml_declaration=True)
